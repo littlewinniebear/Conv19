@@ -1,188 +1,31 @@
-# Hamilton <!-- omit in toc -->
+A Github Pages template for academic websites. This was forked (then detached) by [Stuart Geiger](https://github.com/staeiou) from the [Minimal Mistakes Jekyll Theme](https://mmistakes.github.io/minimal-mistakes/), which is © 2016 Michael Rose and released under the MIT License. See LICENSE.md.
 
-A minimal and beautiful Jekyll theme best for writing and note-taking.
+I think I've got things running smoothly and fixed some major bugs, but feel free to file issues or make pull requests if you want to improve the generic template / theme.
 
-The original purpose of this theme is to be a replacement of the default Jekyll theme -- [Minima](https://github.com/jekyll/minima). Hamilton is an enhancement of Minima but still, keep in minimal.
+### Note: if you are using this repo and now get a notification about a security vulnerability, delete the Gemfile.lock file. 
 
-Please check out the [demo](https://ngzhio.github.io/jekyll-theme-hamilton/).
+# Instructions
 
-| Skins | Displays |
-| ----- | -------- |
-| Daylight | ![screenshot](screenshot.png) |
-| Sunrise/Sunset | ![screenshot](screenshot-sunrise.png) |
-| Midnight | ![screenshot](screenshot-midnight.png) |
+1. Register a GitHub account if you don't have one and confirm your e-mail (required!)
+1. Fork [this repository](https://github.com/academicpages/academicpages.github.io) by clicking the "fork" button in the top right. 
+1. Go to the repository's settings (rightmost item in the tabs that start with "Code", should be below "Unwatch"). Rename the repository "[your GitHub username].github.io", which will also be your website's URL.
+1. Set site-wide configuration and create content & metadata (see below -- also see [this set of diffs](http://archive.is/3TPas) showing what files were changed to set up [an example site](https://getorg-testacct.github.io) for a user with the username "getorg-testacct")
+1. Upload any files (like PDFs, .zip files, etc.) to the files/ directory. They will appear at https://[your GitHub username].github.io/files/example.pdf.  
+1. Check status by going to the repository settings, in the "GitHub pages" section
+1. (Optional) Use the Jupyter notebooks or python scripts in the `markdown_generator` folder to generate markdown files for publications and talks from a TSV file.
 
-## Features <!-- omit in toc -->
+See more info at https://academicpages.github.io/
 
-- [Jekyll SEO Tag](https://github.com/jekyll/jekyll-seo-tag)
-- [Jekyll Feed](https://github.com/jekyll/jekyll-feed)
-- [Jekyll Sitemap](https://github.com/jekyll/jekyll-sitemap)
-- [Google Analytics](https://analytics.google.com/)
-- [MathJax](https://www.mathjax.org/)
-- [Disqus](https://disqus.com/)
-- [Font Awesome](https://fontawesome.com/)
-- TOC
-- Customizable head
-- Configurable page navigation
-- Customizable styles and skins
-- Archive pages implemented in pure Liquid
+## To run locally (not on GitHub Pages, to serve on your own computer)
 
-## Table of Contents <!-- omit in toc -->
+1. Clone the repository and made updates as detailed above
+1. Make sure you have ruby-dev, bundler, and nodejs installed: `sudo apt install ruby-dev ruby-bundler nodejs`
+1. Run `bundle clean` to clean up the directory (no need to run `--force`)
+1. Run `bundle install` to install ruby dependencies. If you get errors, delete Gemfile.lock and try again.
+1. Run `bundle exec jekyll liveserve` to generate the HTML and serve it from `localhost:4000` the local server will automatically rebuild and refresh the pages on change.
 
-- [Installation](#installation)
-- [Configuration](#configuration)
-  - [Optional Parameters](#optional-parameters)
-- [Archive Pages](#archive-pages)
-- [MathJax](#mathjax)
-- [TOC](#toc)
-- [Customization](#customization)
-  - [Metadata](#metadata)
-  - [Navigation](#navigation)
-  - [Social Media](#social-media)
-  - [Skins](#skins)
-  - [More Customized Styles](#more-customized-styles)
-- [License](#license)
+# Changelog -- bugfixes and enhancements
 
-## Installation
+There is one logistical issue with a ready-to-fork template theme like academic pages that makes it a little tricky to get bug fixes and updates to the core theme. If you fork this repository, customize it, then pull again, you'll probably get merge conflicts. If you want to save your various .yml configuration files and markdown files, you can delete the repository and fork it again. Or you can manually patch. 
 
-You can choose one of the following methods to install Hamilton:
-
-- Directly specify the `jekyll-theme-hamilton` gem.
-
-    1. Add `gem 'jekyll-theme-hamilton'` into your `Gemfile`.
-    2. Add the below lines into your `_config.yml`.
-
-        ```yml
-        plugins:
-          - jekyll-theme-hamilton
-        ```
-
-- If your site is hosted on GitHub Pages, you can use [`jekyll-remote-theme`](https://github.com/benbalter/jekyll-remote-theme) to import the master branch of Hamilton.
-
-    1. Add `gem 'jekyll-remote-theme'` into your `Gemfile`.
-    2. Add the below lines into your `_config.yml`.
-
-        ```yml
-        plugins:
-          - jekyll-remote-theme
-
-        remote_theme: ngzhio/jekyll-theme-hamilton
-        ```
-
-## Configuration
-
-After installation, you can run `jekyll serve` to check out your site, but before that, *make sure* the below **required parameters** are configured in your `_config.yml`.
-
-| Parameters | Types | Specifications |
-|:---------- |:----- |:-------------- |
-| `title`    | string | The site title |
-| `disqus`   | string | The Disqus shortname; Unless you don't want to enable the comments system, you must specify this parameter. It is used in the production environment. |
-| `google_analytics` | string | The Google Analytics tracking ID; It is used in the production environment. |
-
-### Optional Parameters
-
-| Parameters | Types | Specifications |
-|:---------- |:----- |:-------------- |
-| `author`   | string | The name of the author of the site; It would be showed in the copyright statement. |
-| `avatar`   | string | The avatar of the author of the site. |
-| `email`    | string | The email of the author of the site. |
-| `location` | string | The current living location of the author of the site. |
-| `skin`     | string | The skin name. See more information on the [Customization](#customization) section. |
-| `lang`     | string | The language of the site; The default value is `en`. |
-| `paginate` | int    | The number of posts on each page. |
-| `date_format` | string | The date format; The default value is `%b %-d, %Y`. |
-
-## Archive Pages
-
-Hamilton implements some archive templates in pure Liquid. For example, if you want to create a category archive page, set the below parameters on that page:
-
-```yml
----
-layout: archive-taxonomies
-type: categories
----
-```
-
-Or a tag archive page:
-
-```yml
-layout: archive-taxonomies
-type: tags
-```
-
-Or archive by years:
-
-```yml
-layout: archive-years
-```
-
-## MathJax
-
-You can enable MathJax on each post or page, just set `math: true` on that page.
-
-## TOC
-
-If you want to show the Table of Contents of a post or page on the left sidebar, just set `toc: true` on that page.
-
-## Customization
-
-### Metadata
-
-You can create a file `_includes/custom-head.html` in your repository, and add any metadata into that page, e.g. favicons.
-
-### Navigation
-
-You can create a file `_data/navigation.yml` to configure links to some pages. For example,
-
-```yml
-- title: About
-  url: /about/
-- title: Categories
-  url: /categories/
-- title: Tags
-  url: /tags/
-```
-
-The navigation bar also supports dropdown submenus:
-
-```yml
-- title: About
-  url: /about/
-- title: Categories
-  url: /categories/
-- title: Tags
-  url: /tags/
-- title: More
-  sublinks:
-    - title: FAQ
-      url: /faq/
-    - title: Docs
-      url: /docs/
-```
-
-### Social Media
-
-You can create a file `_data/social.yml` to configure links to your social media. For example,
-
-```yml
-- title: Twitter
-  url: https://twitter.com/ngzhio
-  icon: fab fa-twitter
-- title: GitHub
-  url: https://github.com/ngzhio/jekyll-theme-hamilton
-  icon: fab fa-github
-```
-
-### Skins
-
-You can select a skin by setting `skin` in `_config.yml`. The built-in skins include `daylight`, `midnight`, `sunrise`, and `sunset`. If you don't specify any skin, Hamilton would dynamically select one in these built-in skins according to different hours in a day.
-
-You can also customize a new skin, for example, a skin called `solarized`. You need to copy [`_sass/hamilton/skins/daylight.scss`](_sass/hamilton/skins/daylight.scss) into your repository and then rename it to `solarized.scss`, and adjust some colors in that file. Finally, specify `skin: solarized` in `_config.yml`.
-
-### More Customized Styles
-
-If you want to create more CSS styles in your site, creating a file `_sass/hamilton/custom-styles.scss`, and putting your code in there, Hamilton would automatically refer to them.
-
-## License
-
-The theme is available as open source under the terms of the [MIT License](LICENSE.txt).
+To support this, all changes to the underlying code appear as a closed issue with the tag 'code change' -- get the list [here](https://github.com/academicpages/academicpages.github.io/issues?q=is%3Aclosed%20is%3Aissue%20label%3A%22code%20change%22%20). Each issue thread includes a comment linking to the single commit or a diff across multiple commits, so those with forked repositories can easily identify what they need to patch.
